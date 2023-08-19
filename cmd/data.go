@@ -72,67 +72,51 @@ func (d *Data) calcWithPointer(times int) int {
 	return d.PositionX + d.PositionY + d.calcWithPointer(times-1)
 }
 
-func calcWithValue() []Data {
-	rel := make([]Data, 0, 100)
-	for j := 0; j < 100; j++ {
-		rel = append(rel, Data{
-			ErrorCode:   0,
-			Confidence:  0,
-			Stability:   0,
-			Text:        "",
-			PositionX:   time.Now().Nanosecond(),
-			PositionY:   2,
-			ErrorCode2:  0,
-			Confidence2: 0,
-			Stability2:  0,
-			Text2:       "",
-			PositionX2:  3,
-			PositionY2:  4,
-		})
+func calcWithValue() Data {
+	return Data{
+		ErrorCode:   0,
+		Confidence:  0,
+		Stability:   0,
+		Text:        "",
+		PositionX:   time.Now().Nanosecond(),
+		PositionY:   2,
+		ErrorCode2:  0,
+		Confidence2: 0,
+		Stability2:  0,
+		Text2:       "",
+		PositionX2:  3,
+		PositionY2:  4,
 	}
-	return rel
 }
 
-func sumWithValue(ds []Data) int {
-	s := 0
-	for _, d := range ds {
-		s += d.PositionY
-	}
-	return s
+func sumWithValue(d Data) int {
+	return d.PositionX + d.PositionX2
 }
-func calcWithPointer() []*Data {
-	rel := make([]*Data, 0, 100)
-	for j := 0; j < 100; j++ {
-		rel = append(rel, &Data{
-			ErrorCode:   0,
-			Confidence:  0,
-			Stability:   0,
-			Text:        "",
-			PositionX:   time.Now().Nanosecond(),
-			PositionY:   2,
-			ErrorCode2:  0,
-			Confidence2: 0,
-			Stability2:  0,
-			Text2:       "",
-			PositionX2:  3,
-			PositionY2:  4,
-		})
+func calcWithPointer() *Data {
+	return &Data{
+		ErrorCode:   0,
+		Confidence:  0,
+		Stability:   0,
+		Text:        "",
+		PositionX:   time.Now().Nanosecond(),
+		PositionY:   2,
+		ErrorCode2:  0,
+		Confidence2: 0,
+		Stability2:  0,
+		Text2:       "",
+		PositionX2:  3,
+		PositionY2:  4,
 	}
-	return rel
 }
 
-func sumWithPointer(ds []*Data) int {
-	s := 0
-	for _, d := range ds {
-		s += d.PositionY
-	}
-	return s
+func sumWithPointer(d *Data) int {
+	return d.PositionX + d.PositionY
 }
 
 func ChanWithValue() int {
 	wg := sync.WaitGroup{}
 
-	dataChan := make(chan []Data, 100)
+	dataChan := make(chan Data, 100)
 	sum := 0
 
 	wg.Add(2)
@@ -146,9 +130,7 @@ func ChanWithValue() int {
 	go func() {
 		for i := 0; i < 1000; i++ {
 			d := <-dataChan
-			for _, v := range d {
-				sum += v.PositionX2
-			}
+			sum += d.PositionX2
 		}
 		wg.Done()
 	}()
@@ -160,7 +142,7 @@ func ChanWithValue() int {
 func ChanWithPointer() int {
 	wg := sync.WaitGroup{}
 
-	dataChan := make(chan []*Data, 100)
+	dataChan := make(chan *Data, 100)
 	sum := 0
 
 	wg.Add(2)
@@ -174,9 +156,7 @@ func ChanWithPointer() int {
 	go func() {
 		for i := 0; i < 1000; i++ {
 			d := <-dataChan
-			for _, v := range d {
-				sum += v.PositionX2
-			}
+			sum += d.PositionX2
 		}
 		wg.Done()
 	}()

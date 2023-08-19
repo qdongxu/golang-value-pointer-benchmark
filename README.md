@@ -12,14 +12,14 @@ cmd> go test -bench=.
 goos: darwin
 goarch: arm64
 pkg: github.com/qdongxu/golang-value-pointer-benchmark/cmd
-BenchmarkCalcWithValue-10      	  156490	      6839 ns/op
-BenchmarkCalcWithPointer-10    	  139938	      8560 ns/op
-BenchmarkChanWithValue-10      	     168	   7033463 ns/op
-BenchmarkChanWithPointer-10    	     130	   9103360 ns/op
-BenchmarkMethodValue-10        	10595004	       113.3 ns/op
-BenchmarkMethodPointer-10      	12543979	        94.60 ns/op
+BenchmarkCalcWithValue-10       16498020                66.62 ns/op
+BenchmarkCalcWithPointer-10     16337106                73.82 ns/op
+BenchmarkChanWithValue-10           9410            130618 ns/op
+BenchmarkChanWithPointer-10         7614            152127 ns/op
+BenchmarkMethodValue-10         10743934               111.7 ns/op
+BenchmarkMethodPointer-10       12711835                94.31 ns/op
 PASS
-ok  	github.com/qdongxu/golang-value-pointer-benchmark/cmd	9.533s
+ok      github.com/qdongxu/golang-value-pointer-benchmark/cmd   7.903s
 ```
 
 A short summary, use value semantics prioritized and let golang to optimize. Only use pointer semantics when a pointer is required(e.g. the data should be changed).
