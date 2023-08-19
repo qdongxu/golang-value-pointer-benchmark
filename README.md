@@ -7,10 +7,8 @@ As the benchmark shows, the value semantics is even faster than the pointer sema
 
 In the case of struct method, the value semantics is a little slower than the pointer semantics, but only ~1 nanosecond per invocation.
 
-```go
-
 ```shell
-.../cmd> go test -bench=.
+cmd> go test -bench=.
 goos: darwin
 goarch: arm64
 pkg: github.com/qdongxu/golang-value-pointer-benchmark/cmd
